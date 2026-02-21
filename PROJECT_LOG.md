@@ -10,3 +10,4 @@
 - Added HTTPS dev setup with self-signed cert script and compose override.
 - Switched backend Docker runtime to Gunicorn for production.
 - Added `VITE_API_BASE` support for frontend API calls (Render static site).
+- Adjusted frontend nginx config: default no `/api` proxy for Render; local compose uses `nginx.local.conf`.

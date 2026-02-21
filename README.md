@@ -40,6 +40,7 @@ docker compose up --build
 Frontend will be available at `http://localhost:8080` and backend at `http://localhost:5000`.
 
 Render note: the backend and frontend `Dockerfile` files assume the build context is the repo root.
+For Render, the frontend uses `frontend/nginx.conf` without an `/api` proxy. Set `VITE_API_BASE` to your backend URL.
 
 ## Production
 The backend Docker image runs with `gunicorn` (WSGI) for production deployment.
