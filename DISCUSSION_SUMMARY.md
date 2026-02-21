@@ -18,3 +18,7 @@
 - De-identification now blanks patient personal info tags plus hospital/center related tags.
 - Specific date-time tags requested removed: StudyDate, SeriesDate, ContentDate, AcquisitionDateTime.
 - Security hardening discussion deferred for later.
+- Deployment notes:
+- Backend deployed on Render with Gunicorn and listens on `$PORT` (10000 on Render).
+- Frontend is a Render Web Service; `VITE_API_BASE` must be provided at build time.
+- Frontend nginx config for Render does not proxy `/api`; local compose uses `nginx.local.conf`.
