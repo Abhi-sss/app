@@ -13,3 +13,4 @@
 - Adjusted frontend nginx config: default no `/api` proxy for Render; local compose uses `nginx.local.conf`.
 - Frontend Docker build now accepts `VITE_API_BASE` at build time.
 - Documented Render deployment behavior and build cache requirements.
+- Improved frontend download filename handling when Content-Disposition is missing.

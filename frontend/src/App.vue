@@ -105,8 +105,19 @@ async function submit() {
     }
 
     const disposition = response.headers.get("content-disposition") || "";
+    const contentType = response.headers.get("content-type") || "";
     const filenameMatch = disposition.match(/filename="?([^";]+)"?/i);
-    const filename = filenameMatch ? filenameMatch[1] : "deidentified.zip";
+    let filename = filenameMatch ? filenameMatch[1] : "";
+
+    if (!filename) {
+      if (files.value.length === 1) {
+        filename = files.value[0].name || "deidentified.dcm";
+      } else if (contentType.includes("zip")) {
+        filename = "deidentified.zip";
+      } else {
+        filename = "deidentified.dcm";
+      }
+    }
 
     const blob = await response.blob();
     const url = URL.createObjectURL(blob);
