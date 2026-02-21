@@ -39,7 +39,7 @@ docker compose up --build
 
 Frontend will be available at `http://localhost:8080` and backend at `http://localhost:5000`.
 
-Render note: the backend `Dockerfile` assumes the build context is the repo root.
+Render note: the backend and frontend `Dockerfile` files assume the build context is the repo root.
 
 ## Production
 The backend Docker image runs with `gunicorn` (WSGI) for production deployment.
