@@ -44,6 +44,13 @@ Render note: the backend `Dockerfile` assumes the build context is the repo root
 ## Production
 The backend Docker image runs with `gunicorn` (WSGI) for production deployment.
 
+## Render Frontend Config
+If deploying the frontend as a Static Site on Render, set an environment variable:
+```
+VITE_API_BASE=https://your-backend.onrender.com
+```
+This is used by the frontend to call the backend API.
+
 ## HTTPS (Local Dev, No Domain)
 Generate a self-signed cert and run the HTTPS compose override:
 ```bash

@@ -93,7 +93,8 @@ async function submit() {
   files.value.forEach((file) => formData.append("files", file));
 
   try {
-    const response = await fetch("/api/deidentify", {
+    const apiBase = import.meta.env.VITE_API_BASE || "";
+    const response = await fetch(`${apiBase}/api/deidentify`, {
       method: "POST",
       body: formData,
     });

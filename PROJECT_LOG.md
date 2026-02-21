@@ -9,3 +9,4 @@
 - Added Dockerfiles, nginx config, and docker-compose for deployment.
 - Added HTTPS dev setup with self-signed cert script and compose override.
 - Switched backend Docker runtime to Gunicorn for production.
+- Added `VITE_API_BASE` support for frontend API calls (Render static site).
