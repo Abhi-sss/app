@@ -41,6 +41,9 @@ Frontend will be available at `http://localhost:8080` and backend at `http://loc
 
 Render note: the backend `Dockerfile` assumes the build context is the repo root.
 
+## Production
+The backend Docker image runs with `gunicorn` (WSGI) for production deployment.
+
 ## HTTPS (Local Dev, No Domain)
 Generate a self-signed cert and run the HTTPS compose override:
 ```bash

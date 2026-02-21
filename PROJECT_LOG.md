@@ -8,3 +8,4 @@
 - Added backend (Flask + pydicom) with `/api/deidentify` and `/api/health`.
 - Added Dockerfiles, nginx config, and docker-compose for deployment.
 - Added HTTPS dev setup with self-signed cert script and compose override.
+- Switched backend Docker runtime to Gunicorn for production.

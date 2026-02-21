@@ -13,4 +13,4 @@ COPY backend/run.py /app/run.py
 
 EXPOSE 5000
 
-CMD ["python", "/app/run.py"]
+CMD ["sh", "-c", "gunicorn -w 2 -b 0.0.0.0:${PORT:-5000} \"app:create_app()\""]
