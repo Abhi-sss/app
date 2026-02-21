@@ -168,6 +168,41 @@ body {
   color: var(--ink-soft);
 }
 
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.file-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+.progress__label {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.35rem;
+}
+
+.progress__bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(12, 18, 32, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+  transition: width 0.2s ease;
+}
+
 .details {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

@@ -14,3 +14,4 @@
 - Frontend Docker build now accepts `VITE_API_BASE` at build time.
 - Documented Render deployment behavior and build cache requirements.
 - Improved frontend download filename handling when Content-Disposition is missing.
+- Added upload progress indicator and file name list in the UI.

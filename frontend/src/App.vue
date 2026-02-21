@@ -31,13 +31,26 @@
             <button class="primary" type="button" :disabled="!canSubmit" @click="submit">
               {{ isLoading ? "Processing..." : "De-identify and download" }}
             </button>
-            <p class="note" v-if="error">{{ error }}</p>
-            <p class="note" v-else-if="files.length">
-              {{ files.length }} file(s) selected
-            </p>
-            <p class="note" v-else>
-              Files are processed in memory. No database storage.
-            </p>
+            <div class="status">
+              <p class="note" v-if="error">{{ error }}</p>
+              <template v-else>
+                <p class="note" v-if="files.length">
+                  {{ files.length }} file(s) selected
+                </p>
+                <p class="note" v-else>
+                  Files are processed in memory. No database storage.
+                </p>
+                <ul v-if="files.length" class="file-list">
+                  <li v-for="file in files" :key="file.name">{{ file.name }}</li>
+                </ul>
+                <div v-if="isLoading" class="progress">
+                  <div class="progress__label">Uploading: {{ uploadProgress }}%</div>
+                  <div class="progress__bar">
+                    <div class="progress__fill" :style="{ width: uploadProgress + '%' }"></div>
+                  </div>
+                </div>
+              </template>
+            </div>
           </div>
         </div>
       </div>
@@ -75,6 +88,7 @@ import { computed, ref } from "vue";
 const files = ref([]);
 const isLoading = ref(false);
 const error = ref("");
+const uploadProgress = ref(0);
 
 const canSubmit = computed(() => files.value.length > 0 && !isLoading.value);
 
@@ -88,24 +102,40 @@ async function submit() {
 
   isLoading.value = true;
   error.value = "";
+  uploadProgress.value = 0;
 
   const formData = new FormData();
   files.value.forEach((file) => formData.append("files", file));
 
   try {
     const apiBase = import.meta.env.VITE_API_BASE || "";
-    const response = await fetch(`${apiBase}/api/deidentify`, {
-      method: "POST",
-      body: formData,
+    const xhr = new XMLHttpRequest();
+    const url = `${apiBase}/api/deidentify`;
+
+    const responseBlob = await new Promise((resolve, reject) => {
+      xhr.open("POST", url);
+      xhr.responseType = "blob";
+
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          uploadProgress.value = Math.round((event.loaded / event.total) * 100);
+        }
+      };
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.response);
+        } else {
+          reject(new Error(xhr.responseText || "Upload failed"));
+        }
+      };
+
+      xhr.onerror = () => reject(new Error("Network error"));
+      xhr.send(formData);
     });
 
-    if (!response.ok) {
-      const message = await response.json().catch(() => ({ error: "Upload failed" }));
-      throw new Error(message.error || "Upload failed");
-    }
-
-    const disposition = response.headers.get("content-disposition") || "";
-    const contentType = response.headers.get("content-type") || "";
+    const disposition = xhr.getResponseHeader("content-disposition") || "";
+    const contentType = xhr.getResponseHeader("content-type") || "";
     const filenameMatch = disposition.match(/filename="?([^";]+)"?/i);
     let filename = filenameMatch ? filenameMatch[1] : "";
 
@@ -119,19 +149,19 @@ async function submit() {
       }
     }
 
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
+    const urlObject = URL.createObjectURL(responseBlob);
     const link = document.createElement("a");
-    link.href = url;
+    link.href = urlObject;
     link.download = filename;
     document.body.appendChild(link);
     link.click();
     link.remove();
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(urlObject);
   } catch (err) {
     error.value = err.message || "Something went wrong";
   } finally {
     isLoading.value = false;
+    uploadProgress.value = 0;
   }
 }
 </script>
