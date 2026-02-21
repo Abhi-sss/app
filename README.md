@@ -39,6 +39,8 @@ docker compose up --build
 
 Frontend will be available at `http://localhost:8080` and backend at `http://localhost:5000`.
 
+Render note: the backend `Dockerfile` assumes the build context is the repo root.
+
 ## HTTPS (Local Dev, No Domain)
 Generate a self-signed cert and run the HTTPS compose override:
 ```bash
