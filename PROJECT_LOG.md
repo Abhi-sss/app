@@ -6,3 +6,5 @@
 - Created Python virtual environment at `.venv`.
 - Added frontend (Vue + Vite) scaffold and UI shell.
 - Added backend (Flask + pydicom) with `/api/deidentify` and `/api/health`.
+- Added Dockerfiles, nginx config, and docker-compose for deployment.
+- Added HTTPS dev setup with self-signed cert script and compose override.

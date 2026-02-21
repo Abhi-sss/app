@@ -31,6 +31,23 @@ npm install
 npm run dev
 ```
 
+## Docker (Deployment Ready)
+Build and run with Docker Compose:
+```bash
+docker compose up --build
+```
+
+Frontend will be available at `http://localhost:8080` and backend at `http://localhost:5000`.
+
+## HTTPS (Local Dev, No Domain)
+Generate a self-signed cert and run the HTTPS compose override:
+```bash
+./scripts/generate-dev-cert.sh
+docker compose -f docker-compose.yml -f docker-compose.https.yml up --build
+```
+
+Then open `https://localhost:8443`. Your browser will warn about the self-signed cert.
+
 ## Files
 - `PLAN.md` high-level plan
 - `DISCUSSION_SUMMARY.md` running summary of decisions
