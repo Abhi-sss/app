@@ -1,0 +1,16 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: dicom-anonymizer-backend
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: dicom-anonymizer-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
