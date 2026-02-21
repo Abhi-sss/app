@@ -11,3 +11,4 @@
 - Switched backend Docker runtime to Gunicorn for production.
 - Added `VITE_API_BASE` support for frontend API calls (Render static site).
 - Adjusted frontend nginx config: default no `/api` proxy for Render; local compose uses `nginx.local.conf`.
+- Frontend Docker build now accepts `VITE_API_BASE` at build time.

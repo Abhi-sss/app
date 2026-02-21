@@ -51,6 +51,7 @@ If deploying the frontend as a Static Site on Render, set an environment variabl
 VITE_API_BASE=https://your-backend.onrender.com
 ```
 This is used by the frontend to call the backend API.
+If deploying the frontend as a Docker Web Service, set the same variable as a build-time env var and redeploy (the Dockerfile uses `ARG VITE_API_BASE` for the build).
 
 ## HTTPS (Local Dev, No Domain)
 Generate a self-signed cert and run the HTTPS compose override:
