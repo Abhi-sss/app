@@ -22,3 +22,4 @@
 - Backend deployed on Render with Gunicorn and listens on `$PORT` (10000 on Render).
 - Frontend is a Render Web Service; `VITE_API_BASE` must be provided at build time.
 - Frontend nginx config for Render does not proxy `/api`; local compose uses `nginx.local.conf`.
+- Frontend now shows file names and upload progress (XHR-based).

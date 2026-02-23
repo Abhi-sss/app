@@ -15,3 +15,4 @@
 - Documented Render deployment behavior and build cache requirements.
 - Improved frontend download filename handling when Content-Disposition is missing.
 - Added upload progress indicator and file name list in the UI.
+- Updated summary with latest UI and deployment notes.
